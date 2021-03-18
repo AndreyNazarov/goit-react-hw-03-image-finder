@@ -13,6 +13,8 @@ class Searchbar extends Component {
     e.preventDefault();
 
     this.props.onSubmit(this.state.query);
+
+    this.setState({ query: '' });
   };
 
   render() {
