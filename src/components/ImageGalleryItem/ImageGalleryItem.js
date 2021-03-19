@@ -11,7 +11,7 @@ class ImageGalleryItem extends Component {
     }));
   };
   render() {
-    const { src, largeImg, alt, onClick } = this.props;
+    const { src, largeImg, alt } = this.props;
     return (
       <li className="ImageGalleryItem">
         <img
