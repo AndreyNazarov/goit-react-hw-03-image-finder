@@ -4,8 +4,7 @@ import Searchbar from './components/Searchbar/Searchbar';
 import ImageGallery from './components/ImageGallery/ImageGallery';
 import Button from './components/Button/Button';
 import OnLoader from './components/Loader/Loader';
-import axios from 'axios';
-
+import imagesAPI from './services/imagesAPI';
 class App extends Component {
   state = {
     images: [],
@@ -28,14 +27,17 @@ class App extends Component {
   };
 
   fetchImages = () => {
-    const url = `https://pixabay.com/api/?key=18984105-6f1a9ca3b34d6e222fa727017&q=${this.state.searchQuery}&page=${this.state.currentPage}&image_type=photo&orientation=horizontal&per_page=12`;
     this.setState({ isLoading: true });
-
-    axios
-      .get(url)
-      .then(res => {
+    const { currentPage, searchQuery } = this.state;
+    const options = {
+      currentPage,
+      searchQuery,
+    };
+    imagesAPI
+      .fetchImages(options)
+      .then(hits => {
         this.setState(prevState => ({
-          images: [...prevState.images, ...res.data.hits],
+          images: [...prevState.images, ...hits],
           currentPage: prevState.currentPage + 1,
         }));
       })
