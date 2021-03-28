@@ -10,7 +10,7 @@ axios.defaults.params = {
   per_page: 12,
 };
 
-const fetchImages = async ({ currentPage = 1, searchQuery = '' }) => {
+const fetchImages = ({ currentPage = 1, searchQuery = '' }) => {
   return axios
     .get('', { params: { currentPage, searchQuery } })
     .then(res => res.data.hits);
